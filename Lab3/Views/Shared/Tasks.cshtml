@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<Lab3.Data.Entities.UserTask>
 
 @{
-    ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
 <h2>Список задач</h2>
-@Html.ActionLink("Добавить задачу", "AddTask")
+@Html.ActionLink("Добавить задачу", "AddTask", "Tasks")
 <table>
     <tr>
         <th>Название</th>
@@ -24,7 +23,7 @@
                 @Html.DisplayFor(modelItem => userTask.Description)
             </td>
             <td>
-                @Html.ActionLink("Удалить", "DeleteTask", new {userTaskId = userTask.Id})
+                @Html.ActionLink("Удалить", "DeleteTask", "Tasks", new {userTaskId = userTask.Id})
             </td>
         </tr>
     }

@@ -32,8 +32,8 @@ namespace Lab3.Controllers
             return RedirectToAction(nameof(GetAll));
         }
 
-        [HttpPost]
-        public Task<IActionResult> AddTask()
+        [HttpGet]
+        public async Task<IActionResult> AddTask()
         {
             return View();
         }
