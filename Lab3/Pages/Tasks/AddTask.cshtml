@@ -1,0 +1,27 @@
+﻿@model Lab3.Data.Entities.UserTask
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Добавление новой задачи</h2>
+
+<form method="post">
+    <table>
+        <tr>
+            <th>Название</th>
+            <th>Описание</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <input type="number" id="Name" name="Name">
+            </td>
+            <td>
+                <input id="Description" name="Description" type="datetime-local">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Добавить">
+</form>

@@ -31,7 +31,14 @@ namespace Lab3.Controllers
             await _tasksService.DeleteUserTask(UserId, userTaskId);
             return RedirectToAction(nameof(GetAll));
         }
-        [HttpGet]
+
+        [HttpPost]
+        public Task<IActionResult> AddTask()
+        {
+            return View();
+        }
+        
+        [HttpPost]
         public async Task<IActionResult> AddTask(UserTask userTask)
         {
             await _tasksService.AddUserTask(UserId, userTask);
