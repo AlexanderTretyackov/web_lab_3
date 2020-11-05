@@ -11,5 +11,6 @@ namespace Lab3.Data.Entities
         public string Description { get; set; }
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

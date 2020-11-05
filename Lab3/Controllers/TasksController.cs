@@ -20,6 +20,12 @@ namespace Lab3.Controllers
             _tasksService = tasksService;
         }
         
+        public async Task<IActionResult> GetTask(string userTaskId)
+        {
+            var userTask = await _tasksService.GetUserTask(UserId, userTaskId);
+            return View("Task", userTask);
+        }
+        
         public async Task<IActionResult> GetAll()
         {
             var userTasks = await _tasksService.GetUserTasks(UserId);

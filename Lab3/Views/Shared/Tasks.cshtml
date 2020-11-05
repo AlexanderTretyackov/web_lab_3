@@ -3,6 +3,38 @@
 @{
     Layout = "_Layout";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  function deleteUserTask(userTaskId) {
+    var row = document.getElementById(userTaskId);
+    $.ajax({
+            type: "POST",
+            url: "/api/ApiTasks/DeleteTask",
+            data: JSON.stringify(userTaskId),
+            contentType: 'application/json; charset=utf-8'
+        }).done(function(result) {
+            if(result)
+                row.parentNode.removeChild(row);
+        });
+    
+  }
+  function toggleCompleteTask(userTaskId, checkbox) {
+      $.ajax({
+              type: "POST",
+              url: "/api/ApiTasks/ToggleCompleteTask",
+              data: JSON.stringify(userTaskId),
+              contentType: 'application/json; charset=utf-8'
+          }).done(function(result) {
+              if(result)
+              {
+                  /*if(checkbox.checked)
+                      checkbox.checked = "";
+                  else
+                      checkbox.checked = "checked";     */           
+              }
+          });
+    }
+</script>
 
 <h2>Список задач</h2>
 @Html.ActionLink("Добавить задачу", "AddTask", "Tasks")
@@ -10,12 +42,14 @@
     <tr>
         <th>Название</th>
         <th>Описание</th>
+        <th>Завершена</th>
+        <th></th>
         <th></th>
     </tr>
 
     @foreach (var userTask in Model)
     {
-        <tr>
+        <tr id="@userTask.Id">
             <td>
                 @Html.DisplayFor(modelItem => userTask.Name)
             </td>
@@ -23,7 +57,14 @@
                 @Html.DisplayFor(modelItem => userTask.Description)
             </td>
             <td>
-                @Html.ActionLink("Удалить", "DeleteTask", "Tasks", new {userTaskId = userTask.Id})
+                <input type="checkbox" asp-for="@userTask.IsCompleted" onchange="toggleCompleteTask('@userTask.Id', this)"/>
+            </td>
+             <td>
+                 @Html.ActionLink("Просмотр", "GetTask", "Tasks", new {userTaskId = userTask.Id})
+            </td>
+            <td>
+                <input type="button" onclick="deleteUserTask('@userTask.Id'); " value="Удалить">
+                @*@Html.ActionLink("Удалить", "DeleteTask", "Tasks", new {userTaskId = userTask.Id})*@
             </td>
         </tr>
     }

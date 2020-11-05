@@ -1,0 +1,42 @@
+﻿@model Lab3.Data.Entities.UserTask
+
+@{
+    Layout = "_Layout";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  function loadComments(userTaskId) {
+      $.ajax({
+              type: "GET",
+              url: "/api/ApiTasks/GetCommentsUserTask/?userTaskId="+userTaskId
+          }).done(function(jsonData) {             
+               var table = document.getElementById("commentsTable");
+               var tableParent = table.parentNode;
+               table.parentNode.removeChild(table);
+               var new_table = document.createElement("table");
+               new_table.id = "commentsTable";
+               $.each(jsonData, function(i, comment) {
+                   var row = document.createElement("tr");
+                   var td = document.createElement("td");
+                   var label = document.createElement("label");
+                   label.textContent = comment
+                   td.appendChild(label);
+                   row.appendChild(td);
+                   new_table.appendChild(row);                 
+               });
+               tableParent.appendChild(new_table);
+          });
+    }
+</script>
+
+<h2>Название задачи</h2>
+@Html.DisplayFor(userTask => userTask.Name)
+<h3>Описание задачи</h3>
+@Html.DisplayFor(userTask => userTask.Description)
+<h3>Завершена</h3>
+<input type="checkbox" asp-for="@Model.IsCompleted" disabled="disabled"/>
+<br>
+<input type="button" onclick="loadComments('@Model.Id'); " value="Показать комментарии">
+<table id="commentsTable">
+</table>

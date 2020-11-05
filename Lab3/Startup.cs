@@ -36,6 +36,7 @@ namespace Lab3
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddControllers();
             services.AddRazorPages();
         }
 
@@ -66,7 +67,8 @@ namespace Lab3
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tasks}/{action=GetAll}/{id?}");
+                    pattern: "{controller=Tasks}/{action=GetAll}");
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }
